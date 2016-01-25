@@ -28,8 +28,8 @@ describe('Utility functions', function () {
  * We'll create a functional query language similar to SQL
  * Called FQL
  * We've already populated three large JS arrays that will
- * act as our "tables".  If you check 0_movies.js you'll see:
- * movies, actors and roles as large JS arrays
+ * act as our "tables".  If you log the `movies`, `actors`, or `roles` variables,
+ * you'll see the arrays we'll be working with.
  * 
  */
 describe('Functional Query Language', function () {
@@ -55,7 +55,7 @@ describe('Functional Query Language', function () {
 
   xit('should have a count method', function () {
     // count() returns how many records are in the movies array
-    // check 0_movies.js for the data set
+    // again, checkout out the `movies` var to see the data set
     // 
     // There are 36 movies in the movies Array
     expect(moviesTable.count()).toEqual(36);
@@ -88,7 +88,7 @@ describe('Functional Query Language', function () {
   });
 
   /** 
-   * Should have a where(truthFunction) method that
+   * Should have a where(criteria) method that
    * will select rows of the table where the function
    * returns true - similar to Array#filter
    *
