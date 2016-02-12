@@ -4,7 +4,7 @@
   "description": "The goal here is to build a JavaScript class called FQL that will be a pure JavaScript implementation of SQL.  By working on this exercise, you will get a chance to explore how the inner workings of a database engine might work.",
   "main": "fql.js",
   "scripts": {
-    "test": "node_modules/.bin/jasmine fql.test.js"
+    "test": "nodemon node_modules/.bin/jasmine fql.test.js"
   },
   "repository": {
     "type": "git",
