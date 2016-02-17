@@ -341,7 +341,7 @@ describe('Functional Query Language - Indexing', function () {
    * the where should simply reach into the indices and pluck those
    * out of the data.
    */
-  xit('should use available indices during where queries', function() {
+  it('should use available indices during where queries', function() {
     actorsTable.addIndex('last_name');
 
     spyOn(actorsTable, 'getIndicesOf').and.callThrough();
@@ -350,7 +350,7 @@ describe('Functional Query Language - Indexing', function () {
     expect( actorsTable.getIndicesOf ).toHaveBeenCalledWith( 'last_name', 'Russell' );
   });
 
-  xit('should produce the same query results with significantly faster look up times', function() {
+  it('should produce the same query results with significantly faster look up times', function() {
     console.log('');
     console.time('Without index');
     for (var timesToRun = 1000; timesToRun--;) {

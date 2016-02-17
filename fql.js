@@ -50,27 +50,39 @@ FQL.prototype.limit = function(size){
 };
 
 FQL.prototype.where = function(object) {
+
+	var currentCol = Object.keys(object)[0];
 	var returnArr = [];
-	this.table.forEach(function(row) {
 
-		var numTrue = 0;
-
-		for (var key in object) {
-
-			if ( typeof object[key] === 'function') {
-				if (object[key](row[key]))
-					numTrue++;
+		if (this.indexTables[currentCol]) {
+			var indeces = this.getIndicesOf(currentCol, object[currentCol]);
+			for (var i = 0; i < indeces.length; i++) {
+				var index = indeces[i];
+				returnArr.push(this.table[index]);
 			}
-
-			else if (row[key] === object[key])
-				numTrue++;
 		}
-		if (numTrue === Object.keys(object).length)
-			returnArr.push(row);
 
-	});
+		else {
 
-	return new FQL(returnArr);
+			this.table.forEach(function(row) {		
+
+				if ( typeof object[currentCol] === 'function') {
+					if (object[currentCol](row[currentCol]))
+						returnArr.push(row);
+				}
+
+				else if ( object[currentCol] === row[currentCol] )
+					returnArr.push(row);
+			});
+		}	
+
+		delete object[currentCol];
+		if (Object.keys(object).length === 0)
+			return new FQL(returnArr);
+
+		var subFQL = new FQL(returnArr);
+		return subFQL.where(object);
+	
 };
 
 FQL.prototype.select = function (cols){
@@ -136,6 +148,8 @@ FQL.prototype.getIndicesOf = function(column, searchStr) {
 	var index = this.indexTables[column];
 	return index[searchStr];
 };
+
+
 
 module.exports = {
 	FQL: FQL,
